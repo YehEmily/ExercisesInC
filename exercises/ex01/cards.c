@@ -47,9 +47,9 @@ void printTotal(int current) {
 int play() {
 	char card_name[3];
 	int count = 0;
+	int val = 0;
 	do {
 		getCardName("Enter the card_name: ", card_name);
-		int val = 0;
 		switch(card_name[0]) {
 			case 'K':
 			case 'Q':
