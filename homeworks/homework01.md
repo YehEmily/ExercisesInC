@@ -20,6 +20,7 @@ With static types, you can always tell what types variables are (integer, string
 int thisIsWrong() {
     char wrongType = 'R';
     return wrongType;
+}
 ```
 
 4) What are two reasons you might want to turn off code optimization?
