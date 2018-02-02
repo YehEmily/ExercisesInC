@@ -14,6 +14,8 @@ Dynamic types (the types of variables that can change while a program is running
 
 With static types, you can always tell what types variables are (integer, string, character, etc.). Also, this means that errors can be found more quickly because since functions must declare the types of arguments that are provided and the type of result that the functions return, the compiler can check whether the arguments provided are the right type and whether the return value is used correctly.
 
+Static types also save space because variable names don't need to be saved in memory.
+
 3) Give an example of a static semantic error.
 
 ```
@@ -35,6 +37,8 @@ If there are subtle bugs in the code, optimization might make the bug appear or 
 you get might look very different.  Why?
 
 I'm guessing the process for checking whether a variable name is correct (or at least already defined) is different from the process for checking whether a function name is correct (or at least refers to a function that already exists). Checking whether a variable name is correct probably (always???) means checking within the file that is being executed, while checking whether a function name is correct probably means checking within the file, then in any external libraries that are used within the file.
+
+Variable names are checked in prepocessing(?) step; function names are checked in compile step.
 
 7) What is a segmentation fault?
 
