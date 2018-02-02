@@ -6,6 +6,9 @@
 
 ### Think OS Chapter 1 reading questions
 
+For each of the reading questions below, write answers in the form of
+a clear, concise, complete sentence or two.
+
 1) Give an example of a feature common in interpreted languages that is rare in compiled languages.
 
 Dynamic types (the types of variables that can change while a program is running); for example, I don't have to define what type a variable called `x` is in Python, but in a compiled language like Java, I have to specify whether `x` is an integer, a string, a character, etc.
