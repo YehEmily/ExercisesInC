@@ -7,7 +7,7 @@ int processInput(char input[]) {
 
 	if (val == 0) {
 		puts("Your input is not valid! Please try again.");
-	} else if (strlen(input) > 5) {
+	} else if (strlen(input) > 10) {
 		puts("Your input is too large! Please try again.");
 	} else {
 		printf("Your input of %i has been added.\n", val);
@@ -21,7 +21,7 @@ void addIntegers(int integers[]) {
 	for (int i = 0; i < 10; ++i) {
 		sum += integers[i];
 	}
-	printf("The final sum of all the integers is %i\n.", sum);
+	printf("The final sum of all the integers is %i.\n", sum);
 }
 
 void run() {
@@ -29,11 +29,9 @@ void run() {
 	int integers[10];
 	int count = 0;
 
-	while (input[0] != EOF) {
+	puts("Hi! Enter up to 10 integers to add (up to 10 digits each).");
+	while (scanf("%10s", input) != EOF) {
 		if (count < 10) {
-			puts("Enter up to 10 integers to add (up to 5 digits each): ");
-			scanf("%10s", input);
-
 			int result = processInput(input);
 
 			if (result != 0) {
@@ -41,8 +39,8 @@ void run() {
 				count++;
 			}
 		} else {
-			puts("Looks like you've entered 10 integers already. Let's add them up!");
-			break;
+			puts("Looks like you've entered 10 integers already. Press CTRL+D to add your integers up.");
+			continue;
 		}
 	}
 	addIntegers(integers);
