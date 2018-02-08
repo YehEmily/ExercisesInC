@@ -20,9 +20,13 @@ In the massively popular and well-loved mobile game of Pokemon Go, walking aroun
 
 It's abstractly true that Pokemon appear randomly and at any point, the player might discover a Dragonite outside their house. However, Pokemon actually spawn according to a complicated formula and it's possible to predict spawns if you know the formula (but, of course, only Niantic employees do).
 
+ANS: Flight simulators, exchanging money with bank, cryptocurrency, the Internet
+
 2. What is the difference between a program and a process?
 
 A process represents a running program. It's possible for a process to run one program or load and run a new program, but each process can only run one program at a time. On the other hand, a program can be run on multiple processes, where each process shares the same program text but has different data and hardware states.
+
+ANS: A program is a static bunch of instructions and a process runs the program; a process has a virtual address, an operating system state (knows about process), and a hardware state (registers data physically). OSes allow for multitasking + resource control + inter-process protection = single process dedicated machine illusion
 
 3. What is the primary purpose of the process abstraction? 
 

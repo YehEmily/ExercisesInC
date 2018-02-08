@@ -1,9 +1,22 @@
 #include <stdio.h>
 
+void printSomething() {
+	puts("Something");
+}
+
 int main() {
-	int x = 5;
-	int y = x + 1;
-    printf("Hello, World! %i\n", y);
+	char b[10];
+	char a = b[100];
+	printf("%i\n", a);
+//	int x = 5;
+//	int y = x + 1;
+//    printf("Hello, World! %i\n", y);
+//    printSomething();
+//    
+//    int a = 3;
+//    int b = 4;
+//    int c = ab() + b;
+//    printf("c is %d\n", c);
     return 0;
 }
 
