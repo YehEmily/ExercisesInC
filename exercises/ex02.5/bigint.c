@@ -23,6 +23,7 @@ Follow these steps to get this program working:
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <ctype.h>
 
 /* reverse_string: Returns a new string with the characters reversed.
 
@@ -32,17 +33,16 @@ s: string
 returns: string
 */
 char *reverse_string(char *s) {
+	int i = 0;
     size_t len_s = strlen(s);
-    char reversed[strlen(s)];
-    int i = 0;
+    char *reversed = malloc(sizeof(char) * (len_s + 1));
     char *t = s + len_s - 1;
     while (t >= s) {
     	reversed[i] = *t;
     	i++;
     	t--;
     }
-    s = reversed;
-    return s;
+    return reversed;
 }
 
 /* ctoi: Converts a character to integer.
@@ -51,7 +51,7 @@ c: one of the characters '0' to '9'
 returns: integer 0 to 9
 */
 int ctoi(char c) {
-//    assert(isdigit(c));
+    assert(isdigit(c));
     return c - '0';
 }
 
@@ -61,7 +61,8 @@ i: integer 0 to 9
 returns: character '0' to '9'
 */
 char itoc(int i) {
-//	assert(isdigit(i));
+	assert(i <= 9);
+	assert(0 <= i);
     return i + '0';
 }
 
@@ -78,14 +79,16 @@ carry: pointer to char
 
 */
 void add_digits(char a, char b, char c, char *total, char *carry) {
+//	printf("a: %c | b: %c | c: %c\n", a, b, c);
     int res = ctoi(a) + ctoi(b) + ctoi(c);
     int new_carry = 0;
-    while (res > 10) {
+    while (res >= 10) {
     	res -= 10;
     	new_carry++;
     }
     *carry = itoc(new_carry);
     *total = itoc(res);
+//    printf("carry: %s | ones: %s\n\n", carry, total);
 }
 
 /* Define a type to represent a BigInt.
@@ -162,6 +165,7 @@ returns: BigInt
 */
 BigInt make_bigint(char *s) {
     char *r = reverse_string(s);
+//    puts("MAKE_BIGINT_PASSED");
     return (BigInt) r;
 }
 
@@ -196,7 +200,7 @@ void test_add_digits() {
 
 void test_add_bigint() {
     char *s = "1";
-    char *t = "99999999999999999999999999999999999999999999";
+    char *t =   "99999999999999999999999999999999999999999999";
     char *res = "000000000000000000000000000000000000000000001";
 
     BigInt big1 = make_bigint(s);    
