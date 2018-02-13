@@ -22,7 +22,7 @@ Ignoring the details of the encoding scheme, how many different characters can b
 
 3) What is the difference between "memory" and "storage" as defined in *Think OS*?
 
-Memory is voltaile, while files stored in storage are not. If your computer shuts down, anything stored in memory will be lost, whereas anything stored in storage (which refers to hard disk drives HSS or solid state drives SSD) won't.
+Memory is volatile, while files stored in storage are not. If your computer shuts down, anything stored in memory will be lost, whereas anything stored in storage (which refers to hard disk drives HSS or solid state drives SSD) won't.
 
 4) What is the difference between a GiB and a GB?  What is the percentage difference in their sizes?
 
