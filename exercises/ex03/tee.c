@@ -16,7 +16,7 @@
 /*
  * Prints to standard output.
  *
- * string 		Input to be printed
+ * string: Input to be printed
  */
 void printToStandardOutput(char* string) {
 	printf("Your input has been successfully written to the given file(s):\n");
@@ -26,9 +26,9 @@ void printToStandardOutput(char* string) {
 /*
  * Writes given string to given file.
  * 
- * string 		String to be written
- * fileName 	Name of file to be edited
- * mode 		Mode in which string is to be written (w = write, a = append)
+ * string: String to be written
+ * fileName: Name of file to be edited
+ * mode: Mode in which string is to be written (w = write, a = append)
  */
 void writeToFile(char* string, char* fileName, char* mode) {
 	FILE *f = fopen(fileName, mode);
@@ -44,7 +44,7 @@ void writeToFile(char* string, char* fileName, char* mode) {
 /*
  * Retrieves user input.
  *
- * str 			Pointer to char where input will be stored
+ * str: Pointer to char where input will be stored
  */
 void getInput(char* str) {
 	printf("Enter the input that you would like written to the given files: ");
@@ -59,11 +59,11 @@ int main(int argc, char *argv[]) {
 	while ((ch = getopt(argc, argv, "a")) != EOF) {
 		switch (ch) {
 			case 'a':
-				append = 1;
-				break;
+			append = 1;
+			break;
 			default:
-				puts("Invalid option detected. Proceeding anyway...");
-				break;
+			puts("Invalid option detected. Proceeding anyway...");
+			break;
 		}
 	}
 
