@@ -12,16 +12,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
-
-/*
- * Prints to standard output.
- *
- * string: Input to be printed
- */
-void printToStandardOutput(char* string) {
-	printf("Your input has been successfully written to the given file(s):\n");
-	printf("%s\n", string);
-}
+#include <string.h>
 
 /*
  * Writes given string to given file.
@@ -30,25 +21,22 @@ void printToStandardOutput(char* string) {
  * fileName: Name of file to be edited
  * mode: Mode in which string is to be written (w = write, a = append)
  */
-void writeToFile(char* string, char* fileName, char* mode) {
+void writeToFile(char* fileName, char* mode) {
 	FILE *f = fopen(fileName, mode);
+	char buffer[256];
+	
 	if (f == NULL) {
 		printf("An error occurred while opening the file: %s\n", fileName);
 		exit(1);
 	}	
-	fprintf(f, "%s", string);
+	
+	while (!feof(stdin)) {
+		fgets(buffer, 256, stdin);
+		fprintf(f, "%s", buffer);
+		printf("%s", buffer);
+	}
+	
 	fclose(f);
-	printToStandardOutput(string);
-}
-
-/*
- * Retrieves user input.
- *
- * str: Pointer to char where input will be stored
- */
-void getInput(char* str) {
-	printf("Enter the input that you would like written to the given files: ");
-	fgets(str, sizeof(str), stdin);
 }
 
 int main(int argc, char *argv[]) {
@@ -70,11 +58,8 @@ int main(int argc, char *argv[]) {
 	argc -= optind;
 	argv += optind;
 
-	char str[100];
-	getInput(str);
-
 	for (i = 0; i < argc; i++) {
-		append ? writeToFile(str, argv[i], "a") : writeToFile(str, argv[i], "w");
+		append ? writeToFile(argv[i], "a") : writeToFile(argv[i], "w");
 	}
 
 	return 0;
