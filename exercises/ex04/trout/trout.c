@@ -1,12 +1,7 @@
 #include "trout.h"
 
 /* variables we might want to configure */
-max_ttl = 30;
-int nprobes = 2;
-datalen = sizeof (Rec);         /* length of the data in a datagram */
 Rec *rec = (Rec *) sendbuf;
-seq = 0;
-u_short dport = 32768 + 668;        /* destination port -- hopefully unused */
 
 /* NOTES: system calls beginning with a capital letter are Stevens's
    wrapper functions.  Each one invokes the method and checks the
@@ -39,6 +34,8 @@ int process_ip (struct ip *ip, int len)
   struct icmp *icmp;
   struct ip *hip;
   struct udphdr *udp;
+  seq = 0;
+  u_short dport = 32768 + 668;        /* destination port -- hopefully unused */
 
   hlen1 = ip->ip_hl << 2;                        /* length of IP header */
   icmp = (struct icmp *) (recvbuf + hlen1);
@@ -81,6 +78,7 @@ int process_ip (struct ip *ip, int len)
       return 0;
     }
   }
+  return 0;
 }
 
 /* recv_dgram: reads all incoming datagrams and checks for
@@ -180,7 +178,6 @@ double time_to_double (Timeval *time)
 void print_report ()
 {
   int stat;
-  double rtt, krtt;
   char str[NI_MAXHOST];
       
   stat = sock_cmp_addr (sarecv, salast, salen);
@@ -201,7 +198,6 @@ void print_report ()
   /* calculate and print the round trip time using user-level timestamps */
 
   sub_tv (recvtv, sendtv, difftv);
-  rtt = time_to_double (difftv);
 
   printf ("  %.3f", time_to_double (difftv));
 }
@@ -218,6 +214,9 @@ void print_report ()
 void send_dgram (int ttl)
 {
   int n;
+  datalen = sizeof (Rec);         /* length of the data in a datagram */
+  seq = 0;
+  u_short dport = 32768 + 668;        /* destination port -- hopefully unused */
 
   rec->seq = seq++;
   sock_set_port (sasend, salen, htons(dport+seq));
@@ -243,10 +242,11 @@ void send_dgram (int ttl)
 
 int send_probes (int ttl) 
 {
-  int i, probe, code, done;
+  int probe, code, done;
 
   Setsockopt (sendfd, IPPROTO_IP, IP_TTL, &ttl, sizeof(int));
   bzero (salast, salen);
+  int nprobes = 2;
 
   printf ("%2d  ", ttl);
   fflush (stdout);
@@ -278,6 +278,8 @@ void loop_ttl ()
   int ttl, done;
 
   Pipe (pipefd);     /* the pipe for the alarm handler */
+  max_ttl = 30;
+
 
   recvfd = socket (sasend->sa_family, SOCK_RAW, IPPROTO_ICMP);
   if (recvfd == -1) {

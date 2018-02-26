@@ -18,6 +18,7 @@
 #include <sys/un.h>
 #include <stdarg.h>
 #include <syslog.h>
+#include <unistd.h>
 
 #define MAXLINE 4096
 
