@@ -52,8 +52,24 @@ double time_func(int iters, float(*func)())
     return t1 - t0;
 }
 
+double time_func_double(int iters, double(*func)())
+{
+    int i;
+    double d;
+    double t0, t1;
 
-main(int argc, char *argv[])
+    srandom(time(NULL));
+
+    t0 = get_seconds();
+    for (i=0; i<iters; i++) {
+        d = func();
+    }
+    t1 = get_seconds();
+    return t1 - t0;
+}
+
+
+int main(int argc, char *argv[])
 {
     double time;
     int iters = 100000000;
@@ -74,6 +90,11 @@ main(int argc, char *argv[])
     time = time_func(iters, my_random_float2);
     printf("%f ms \t my_random_float2\n", time);
 
-    time = time_func(iters, random_float);
-    printf("%f ms \t random_float\n", time);
+    printf("\n");
+
+    time = time_func_double(iters, random_double);
+    printf("%f ms \t random_double\n", time);
+
+    time = time_func_double(iters, my_random_double);
+    printf("%f ms \t my_random_double\n", time);
 }

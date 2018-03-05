@@ -29,10 +29,12 @@ def main(script, filename=None):
     t = read_data(fp)
     counter = Counter(t)
 
-    xs = counter.keys()
-    xs.sort()
-
-    ys = np.cumsum(counter.values()).astype(float)
+    xs = sorted(counter.keys())
+    
+    arr = []
+    for x in counter.values():
+        arr.append(float(x))
+    ys = np.cumsum(arr)
     ys /= ys[-1]
 
     options = dict(linewidth=3, alpha=0.5)
