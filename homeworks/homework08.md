@@ -36,4 +36,4 @@ Each piece of toast has to cook for 5 minutes on each side.  How can I schedule 
 to minimize the elapsed time to cook all 12 slices?  (Note: this question is not hypothetical; 
 this is really how I make French toast.)
 
-(Is this a question I'm supposed to answer??) Put 9 slices on the griddle and let them cook on both sides, then put the remaining 3 on and do the same. It takes a total of 20 minutes. Actually, Allen, why not make batches of 18 slices? Then you can bring some to work and share them with your colleagues and students!
+(Is this a question I'm supposed to answer??) Put 8 slices on the griddle and let them cook on both sides, then put the remaining 4 on and do the same. It takes a total of 20 minutes. Actually, Allen, why not make batches of 16 slices? Then you can bring some to work and share them with your colleagues and students!
