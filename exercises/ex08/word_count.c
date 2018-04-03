@@ -6,7 +6,7 @@
 
 #define MAXCHAR 10000
 
-char* convertStringToInt(char* num) {
+char* itoa(int num) {
 	char* str = malloc(sizeof(char) * MAXCHAR);
 	sprintf(str, "%d", num);
 	return str;
@@ -18,7 +18,7 @@ void updateHashtable(GHashTable* hash, char* key) {
 		g_hash_table_insert(hash, key, "1");
 	} else {
 		int new_val = atoi(val) + 1;
-		g_hash_table_replace(hash, key, convertStringToInt(new_val));
+		g_hash_table_replace(hash, key, itoa(new_val));
 	}
 }
 
