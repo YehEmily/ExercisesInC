@@ -91,6 +91,8 @@ int main()
     int i;
     pthread_t child[NUM_CHILDREN];
 
+    // printf("Address of i in parent : %p\n", &i);
+
     Shared *shared = make_shared();
 
     for (i=0; i<NUM_CHILDREN; i++) {

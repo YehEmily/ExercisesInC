@@ -5,3 +5,5 @@ counter: counter.c
 counter_mutex: counter_mutex.c
 	gcc -Wall -o counter_mutex counter_mutex.c -lpthread
 
+counter_array: counter_array.c
+	gcc -Wall -o counter_array counter_array.c -lpthread
