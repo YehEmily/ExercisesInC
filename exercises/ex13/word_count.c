@@ -33,14 +33,15 @@ gint compare_pair(gpointer v1, gpointer v2, gpointer user_data)
 void pair_printor(gpointer value, gpointer user_data)
 {
     Pair *pair = (Pair *) value;
-    printf("%d\t %s\n", pair->freq, pair->word);
+    // printf("%d\t %s\n", pair->freq, pair->word);
+    free(pair);
 }
 
 
 /* Iterator that prints keys and values. */
 void kv_printor (gpointer key, gpointer value, gpointer user_data)
 {
-    printf(user_data, key, *(gint *) value);
+    // printf(user_data, key, *(gint *) value);
 }
 
 
@@ -59,17 +60,19 @@ void accumulator(gpointer key, gpointer value, gpointer user_data)
 }
 
 /* Increments the frequency associated with key. */
-void incr(GHashTable* hash, gchar *key)
-{
+void incr(GHashTable* hash, gchar *key) {
     gint *val = (gint *) g_hash_table_lookup(hash, key);
 
     if (val == NULL) {
-        gint *val1 = g_new(gint, 1);
-        *val1 = 1;
+        gint *temp = g_new(gint, 1);
+        *temp = 1;
+        gint *val1 = temp;
+        free(temp);
         g_hash_table_insert(hash, key, val1);
     } else {
         *val += 1;
     }
+    free(val);
 }
 
 int main(int argc, char** argv)
@@ -85,7 +88,9 @@ int main(int argc, char** argv)
 
     FILE *fp = g_fopen(filename, "r");
     if (fp == NULL) {
+        free(fp);
         perror(filename);
+        free(filename);
         exit(-10);
     }
 
@@ -104,6 +109,8 @@ int main(int argc, char** argv)
         for (int i=0; array[i] != NULL; i++) {
             incr(hash, array[i]);
         }
+        g_strfreev(array);
+        free(res);
     }
     fclose(fp);
 
@@ -120,6 +127,22 @@ int main(int argc, char** argv)
     // try (unsuccessfully) to free everything
     g_hash_table_destroy(hash);
     g_sequence_free(seq);
+    free(filename);
 
     return 0;
 }
+
+// Valgrind output:
+// ==27934== HEAP SUMMARY:
+// ==27934==     in use at exit: 18,604 bytes in 6 blocks
+// ==27934==   total heap usage: 455,559 allocs, 455,553 frees, 9,183,207 bytes allocated
+// ==27934== 
+// ==27934== LEAK SUMMARY:
+// ==27934==    definitely lost: 0 bytes in 0 blocks
+// ==27934==    indirectly lost: 0 bytes in 0 blocks
+// ==27934==      possibly lost: 0 bytes in 0 blocks
+// ==27934==    still reachable: 18,604 bytes in 6 blocks
+// ==27934==         suppressed: 0 bytes in 0 blocks
+// ==27934== Reachable blocks (those to which a pointer was found) are not shown.
+// ==27934== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+// I'm not sure where the 18604 bytes are from...

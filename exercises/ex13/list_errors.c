@@ -180,6 +180,14 @@ Node *make_something() {
     return node3;
 }
 
+void free_nodes_in_list(Node *head) {
+    while (head != NULL) {
+        Node *old = head;
+        head = head->next;
+        free(old);
+    }
+    printf("free_nodes completed.\n");
+}
 
 int main() {
     // make a list of even numbers
@@ -192,6 +200,7 @@ int main() {
     insert_by_index(&test_list, 3, 2);
     insert_by_index(&test_list, 5, 4);
     insert_by_index(&test_list, 7, 6);
+
 
     // this index is out of bounds; should return -1
     int res = insert_by_index(&test_list, 9, 8);
@@ -209,7 +218,24 @@ int main() {
     print_list(&empty);
 
     Node *something = make_something();
-    free(something);
+    // free(something);
+
+    free_nodes_in_list(test_list);
+    free_nodes_in_list(something);
+    free_nodes_in_list(empty);
 
     return 0;
 }
+
+/**
+Valgrind output:
+==13747== HEAP SUMMARY:
+==13747==     in use at exit: 0 bytes in 0 blocks
+==13747==   total heap usage: 13 allocs, 13 frees, 1,216 bytes allocated
+==13747== 
+==13747== All heap blocks were freed -- no leaks are possible
+==13747== 
+==13747== For counts of detected and suppressed errors, rerun with: -v
+==13747== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+We did it!
+*/
